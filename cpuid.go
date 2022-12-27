@@ -76,6 +76,7 @@ const (
 	AMXFP16                             // Tile computational operations on FP16 numbers
 	AMXINT8                             // Tile computational operations on 8-bit integers
 	AMXTILE                             // Tile architecture
+	WRMSRNS                             // xxxxxxxxxxxxxxxxxxxxxxxx
 	AVX                                 // AVX functions
 	AVX2                                // AVX2 functions
 	AVX512BF16                          // AVX-512 BFLOAT16 Instructions
@@ -1193,6 +1194,7 @@ func support() flagSet {
 		fs.setIf(eax1&(1<<10) != 0, MOVSB_ZL)
 		fs.setIf(eax1&(1<<11) != 0, STOSB_SHORT)
 		fs.setIf(eax1&(1<<12) != 0, CMPSB_SCADBS_SHORT)
+		// fs.setIf(eax1&(1<<19) != 0, WRMSRNS)
 		fs.setIf(eax1&(1<<22) != 0, HRESET)
 		fs.setIf(eax1&(1<<23) != 0, AVXIFMA)
 		fs.setIf(eax1&(1<<26) != 0, LAM)
@@ -1232,6 +1234,7 @@ func support() flagSet {
 				fs.setIf(edx&(1<<25) != 0, AMXINT8)
 				// eax1 = CPUID.(EAX=7, ECX=1).EAX
 				fs.setIf(eax1&(1<<5) != 0, AVX512BF16)
+				fs.setIf(eax1&(1<<19) != 0, WRMSRNS)
 				fs.setIf(eax1&(1<<21) != 0, AMXFP16)
 			}
 		}
